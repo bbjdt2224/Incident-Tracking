@@ -1,0 +1,22 @@
+{
+  "name": "incidenttracking",
+  "version": "1.0.0",
+  "description": "App that holds and tracks technological and other issues within a company",
+  "main": "main.js",
+  "scripts": {
+    "test": "node main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bbjdt2224/Incident-Tracking.git"
+  },
+  "keywords": [
+    "Incident Tracking"
+  ],
+  "author": "Justin True",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bbjdt2224/Incident-Tracking/issues"
+  },
+  "homepage": "https://github.com/bbjdt2224/Incident-Tracking#readme"
+}
