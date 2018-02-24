@@ -1,28 +1,46 @@
 var express = require('express')
+var bodyParser = require("body-parser")
 var app = express()
 
-var conn = require('./dbConnect.js')
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+var db = require('./models/index.js')
 
 //res.send('Hello World')
 
 //GET /incidents 
 app.get('/incidents', function (req, res) {
-  conn.query('select * from incidents where userId=1', { model: incident}).then(rows => {
-    conn.query('select * from incidentRevisions where incidentId='+rows.id+' and revisionNumber='+rows.revisionId, {model: incidentRevision}).then(incidentrow => {
-      console.log(incidentrow)
-    })
-  })
-  conn.query('select * from incidents where trackerId=1', { model: incident}).then(rows => {
-    conn.query('select * from incidentRevisions where incidentId='+rows.id+' and revisionNumber='+rows.revisionId, {model: incidentRevision}).then(incidentrow => {
-      console.log(incidentrow)
-    })
+  db.incidents.findAll({
+    where: {
+      userId: 1
+    }
+  }).then(incidents =>{
+    incidents.forEach(element => {
+      console.log(element.id)
+    });
   })
 })
  
 //POST /incidents
 app.post('/incidents', function (req, res) {
-  //conn.query('insert into incidents (revisionId, userId, trackerId) values (1, 1, 2)')
-  //conn.query('insert into incidents (incidentId, revisionNumber, timestamp, type, shortDescription, longDescription, resolution, severity) values (1, 1, "2018-02-02 12:13:00", "technical", "Got Hacked", "")')
+  const i = db.incidents.build({
+    revisionId: req.body.revisionId,
+    userId: req.body.userId,
+    trackerId: req.body.trackerId
+  })
+  i.save()
+  const ir = db.incidentrevisions.build({
+    incidentId: req.body.incidentId,
+    revisionNumebr: req.body.revisionNumber,
+    timestamp: req.body.timestamp,
+    type: req.body.type,
+    shortDescription: req.body.shortDescription,
+    longDescription: req.body.longDescription,
+    resolution: req.body.resolution,
+    severity: req.body.severity
+  })
+  ir.save()
 })
 
 
