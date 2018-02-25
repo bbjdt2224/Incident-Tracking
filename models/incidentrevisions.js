@@ -2,8 +2,7 @@
 module.exports = (sequelize, DataTypes) => {
   var incidentrevisions = sequelize.define('incidentrevisions', {
     incidentId: DataTypes.INTEGER,
-    revisionNumebr: DataTypes.INTEGER,
-    timestamp: DataTypes.DATE,
+    revisionNumber: DataTypes.INTEGER,
     type: DataTypes.STRING,
     shortDescription: DataTypes.STRING,
     longDescription: DataTypes.STRING,
@@ -11,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     severity: DataTypes.INTEGER
   }, {});
   incidentrevisions.associate = function(models) {
-    // associations can be defined here
+    incidentrevisions.belongsTo(models.incidents, {foreignKey: 'incidentId', as: 'revision'});
   };
   return incidentrevisions;
 };

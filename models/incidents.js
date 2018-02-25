@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
     trackerId: DataTypes.INTEGER
   }, {});
   incidents.associate = function(models) {
-    // associations can be defined here
+    incidents.hasMany(models.incidentrevisions, {foreignKey: 'incidentId', as: 'revision'});
   };
   return incidents;
 };

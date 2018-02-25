@@ -11,11 +11,8 @@ module.exports = {
       incidentId: {
         type: Sequelize.INTEGER
       },
-      revisionNumebr: {
+      revisionNumber: {
         type: Sequelize.INTEGER
-      },
-      timestamp: {
-        type: Sequelize.DATE
       },
       type: {
         type: Sequelize.STRING
