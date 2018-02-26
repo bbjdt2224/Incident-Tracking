@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     severity: DataTypes.INTEGER
   }, {});
   incidentrevisions.associate = function(models) {
-    incidentrevisions.belongsTo(models.incidents, {foreignKey: 'incidentId', as: 'revision'});
+    incidentrevisions.belongsTo(models.incidents, {foreignKey: 'incidentId'});
   };
   return incidentrevisions;
 };

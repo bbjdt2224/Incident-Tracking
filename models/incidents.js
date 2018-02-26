@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
     trackerId: DataTypes.INTEGER
   }, {});
   incidents.associate = function(models) {
-    incidents.hasMany(models.incidentrevisions, {foreignKey: 'incidentId', as: 'revision'});
+    incidents.hasMany(models.incidentrevisions, {foreignKey: 'incidentId'});
   };
   return incidents;
 };
