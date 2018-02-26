@@ -20,6 +20,7 @@ app.get('/incidents', function (req, res) {
                 }
             }).then(function (revision) {
                 incidentarr.push(revision.shortDescription);
+                console.log(incidentarr);
             });
         });
     });
@@ -31,13 +32,15 @@ app.post('/incidents', function (req, res) {
         revisionId: 1,
         userId: req.body.userId,
         trackerId: req.body.trackerId
-    });
-    db.incidentrevisions.create({
-        incidentId: req.body.incidentId,
-        revisionNumber: '1',
-        type: req.body.type,
-        shortDescription: req.body.shortDescription,
-        longDescription: req.body.longDescription
+    }).then(function (incident) {
+        db.incidentrevisions.create({
+            revisionNumber: '1',
+            type: req.body.type,
+            shortDescription: req.body.shortDescription,
+            longDescription: req.body.longDescription
+        }).then(function (revision) {
+            return revision.setIncident(incident);
+        });
     });
     res.send("Done");
 });
